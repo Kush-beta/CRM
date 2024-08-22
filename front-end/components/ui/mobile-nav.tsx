@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "./sheet";
 import { Button } from "./button";
@@ -6,21 +8,44 @@ import {
   LineChart,
   Menu,
   Package,
-  Package2,
   ShoppingCart,
   Users,
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "./badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./card";
+import { usePathname } from "next/navigation";
+
+export const navItems = [
+  {
+    label: "Dashboard",
+    href: "/admin/dashboard",
+    icon: <Home className="h-4 w-4" />,
+  },
+  {
+    label: "Orders",
+    href: "/admin/orders",
+    icon: <ShoppingCart className="h-4 w-4" />,
+  },
+  {
+    label: "Products",
+    href: "/admin/products",
+    icon: <Package className="h-4 w-4" />,
+  },
+  {
+    label: "Users",
+    href: "/admin/users",
+    icon: <Users className="h-4 w-4" />,
+  },
+  {
+    label: "Analytics",
+    href: "/admin/analytics",
+    icon: <LineChart className="h-4 w-4" />,
+  },
+];
 
 export default function MobileNav() {
+  const pathname = usePathname();
+  
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -31,7 +56,22 @@ export default function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col">
         <nav className="grid gap-2 text-lg font-medium">
-          <Link
+          {navItems.map((navItem) => (
+            <Link
+              key={navItem.label}
+              href={navItem.href}
+              className={`flex items-center gap-2 text-muted-foreground hover:text-primary ${
+                pathname === navItem.href ? "text-primary" : ""
+              }`}
+            >
+              {navItem.icon}
+              {navItem.label}
+              {navItem.label === "Orders" && <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                6
+              </Badge>}
+            </Link>
+          ))}
+          {/* <Link
             href="#"
             className="flex items-center gap-2 text-lg font-semibold"
           >
@@ -75,9 +115,9 @@ export default function MobileNav() {
           >
             <LineChart className="h-5 w-5" />
             Analytics
-          </Link>
+          </Link> */}
         </nav>
-        <div className="mt-auto">
+        {/* <div className="mt-auto">
           <Card>
             <CardHeader>
               <CardTitle>Upgrade to Pro</CardTitle>
@@ -92,7 +132,7 @@ export default function MobileNav() {
               </Button>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </SheetContent>
     </Sheet>
   );

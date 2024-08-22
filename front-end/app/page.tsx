@@ -1,5 +1,4 @@
 import MobileNav from "@/components/ui/mobile-nav";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import Sidebar from "@/components/ui/sidebar";
 
 export default function Dashboard() {

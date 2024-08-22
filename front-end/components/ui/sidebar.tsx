@@ -18,7 +18,7 @@ import { Button } from "./button";
 export const navItems = [
   {
     label: "Dashboard",
-    href: "/admin",
+    href: "/admin/dashboard",
     icon: <Home className="h-4 w-4" />,
   },
   {
